@@ -42,7 +42,7 @@
                                         @csrf
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="text" class="form-control" id="name">
+                                            <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                         <input type="hidden" name="roles[]">
 
