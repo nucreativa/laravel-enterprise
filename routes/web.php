@@ -17,4 +17,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => ['role:administrator']], function () {
+    Route::post('/permissions', 'PermissionController@add')->name('permission.add');
+    Route::post('/permissions/{id}', 'PermissionController@update')->name('permission.update');
+    Route::get('/permissions/{id}', 'PermissionController@edit')->name('permission.edit');
+    Route::get('/permissions', 'PermissionController@index')->name('permission.index');
+    Route::post('/roles', 'RoleController@add')->name('role.add');
+    Route::post('/roles/{id}', 'RoleController@update')->name('role.update');
+    Route::get('/roles/{id}', 'RoleController@edit')->name('role.edit');
+    Route::get('/roles', 'RoleController@index')->name('role.index');
+
+    Route::get('/users/export', 'UserController@export')->name('user.export');
+    Route::post('/users/{id}', 'UserController@update')->name('user.update');
+    Route::get('/users/{id}', 'UserController@edit')->name('user.edit');
+    Route::get('/users', 'UserController@index')->name('user.index');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');

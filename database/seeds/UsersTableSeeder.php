@@ -16,5 +16,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'nucreativa@gmail.com',
             'password' => 'secret',
         ]);
+        $user->assignRole('administrator');
     }
 }
