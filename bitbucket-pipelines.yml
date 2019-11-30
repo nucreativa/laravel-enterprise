@@ -1,0 +1,30 @@
+# This is a sample build configuration for PHP.
+# Check our guides at https://confluence.atlassian.com/x/e8YWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: php:7.3.11
+
+pipelines:
+  default:
+    - step:
+        script:
+          - apt-get update
+          - apt-get install -y zip unzip wget libzip-dev git
+          - docker-php-ext-install zip
+          - apt-get install -y zlib1g-dev libpcre3-dev libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev
+          - docker-php-ext-install exif
+          - docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+          - docker-php-ext-install gd
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - php -r "file_exists('.env') || copy('.env.example', '.env');"
+          - composer install
+          - php artisan key:generate
+          - vendor/bin/phpunit
+definitions:
+  services:
+    mysql:
+      image: mysql
+      environment:
+        MYSQL_DATABASE: laravel
+        MYSQL_ROOT_PASSWORD: secret
