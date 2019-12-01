@@ -10,6 +10,9 @@
                             <a href="{{route('home')}}" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{route('profile.update')}}">Update Profile</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{route('password.change')}}">Change Password</a>
                         </li>
                     </ul>
