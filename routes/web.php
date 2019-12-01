@@ -15,7 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')->name('password.expired');
+    Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')->name('password.post_expired');
+});
 
 Route::group(['middleware' => ['role:administrator']], function () {
     Route::post('/permissions', 'PermissionController@add')->name('permission.add');

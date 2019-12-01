@@ -101,6 +101,8 @@ return [
         ],
     ],
 
+    'password_expires_days' => 30,
+
     /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
