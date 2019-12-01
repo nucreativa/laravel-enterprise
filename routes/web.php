@@ -21,6 +21,8 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::middleware(['auth'])->group(function () {
+    Route::post('password/change', 'Auth\ChangePasswordController@update')->name('password.post_change');
+    Route::get('password/change', 'Auth\ChangePasswordController@index')->name('password.change');
     Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')->name('password.expired');
     Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')->name('password.post_expired');
 });
