@@ -36,8 +36,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        User::where('id',$id)->update([
-           'name' => $data['name'],
+        User::where('id', $id)->update([
+            'name' => $data['name'],
         ]);
         $user = User::find($id);
         $user->syncRoles($data['roles']);

@@ -12,15 +12,16 @@
 */
 
 Route::get('/', function () {
-    if(\Auth::check()){
+    if (\Auth::check()) {
         return redirect()->route('home');
     }
+
     return view('welcome');
 });
 
 Auth::routes(['verify' => true]);
 
-Route::middleware(['auth'])->group(function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::post('profile/update', 'Auth\UpdateProfileController@update')->name('profile.post_update');
     Route::get('profile/update', 'Auth\UpdateProfileController@index')->name('profile.update');
     Route::post('password/change', 'Auth\ChangePasswordController@update')->name('password.post_change');

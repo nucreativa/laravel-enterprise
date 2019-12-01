@@ -25,12 +25,16 @@ class PasswordExpiredRequest extends FormRequest
     public function rules()
     {
         $user = Auth::user();
+
         return [
-            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
-                if (!\Hash::check($value, $user->password)) {
-                    return $fail(__('The current password is incorrect.'));
-                }
-            }],
+            'current_password' => [
+                'required',
+                function ($attribute, $value, $fail) use ($user) {
+                    if (! \Hash::check($value, $user->password)) {
+                        return $fail(__('The current password is incorrect.'));
+                    }
+                },
+            ],
             'password' => 'required|min:8|confirmed',
         ];
     }
