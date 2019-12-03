@@ -1,10 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "nucreativa/laravel-enterprise",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Laravel Enterprise grade app skeleton.",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "enterprise"
     ],
     "license": "MIT",
     "require": {

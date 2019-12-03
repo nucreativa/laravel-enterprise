@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-Route::group(['middleware' => ['auth']], function () {
+Route::middleware(['auth'])->group(function () {
     Route::post('profile/update', 'Auth\UpdateProfileController@update')->name('profile.post_update');
     Route::get('profile/update', 'Auth\UpdateProfileController@index')->name('profile.update');
     Route::post('password/change', 'Auth\ChangePasswordController@update')->name('password.post_change');
@@ -30,7 +30,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')->name('password.post_expired');
 });
 
-Route::group(['middleware' => ['role:administrator']], function () {
+Route::middleware(['role:administrator'])->group(function () {
     Route::post('/permissions', 'PermissionController@add')->name('permission.add');
     Route::post('/permissions/{id}', 'PermissionController@update')->name('permission.update');
     Route::get('/permissions/{id}', 'PermissionController@edit')->name('permission.edit');
