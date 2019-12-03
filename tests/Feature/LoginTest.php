@@ -32,8 +32,20 @@ class LoginTest extends TestCase
 
     public function test_login_with_incorrect_credentials()
     {
-        $response = $this->postJson('/login', []);
+        $response = $this->postJson(route('login'), []);
 
         $response->assertStatus(422);
+    }
+
+    public function test_login_with_incorrect_credentials_when_reach_max_attempts()
+    {
+        $this->postJson(route('login'), ['email' => 'test@test.com', 'password' => 'wrongpass']);
+        $this->postJson(route('login'), ['email' => 'test@test.com', 'password' => 'wrongpass']);
+        $this->postJson(route('login'), ['email' => 'test@test.com', 'password' => 'wrongpass']);
+        $this->postJson(route('login'), ['email' => 'test@test.com', 'password' => 'wrongpass']);
+        $this->postJson(route('login'), ['email' => 'test@test.com', 'password' => 'wrongpass']);
+        $response = $this->postJson('/login', ['email' => 'test@test.com', 'password' => 'wrongpass']);
+
+        $response->assertStatus(429);
     }
 }

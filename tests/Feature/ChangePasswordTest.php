@@ -13,15 +13,15 @@ class ChangePasswordTest extends TestCase
     public function test_open_page_when_authenticated()
     {
         $user = factory(User::class)->create();
-        $response = $this->actingAs($user)->get('/password/change');
+        $response = $this->actingAs($user)->get(route('password.change'));
 
         $response->assertStatus(200);
     }
 
     public function test_open_page_when_not_authenticated()
     {
-        $response = $this->get('/password/change');
+        $response = $this->get(route('password.change'));
 
-        $response->assertRedirect('/login');
+        $response->assertRedirect(route('login'));
     }
 }
