@@ -32,7 +32,7 @@ class ExpiredPasswordTest extends TestCase
             'password_changed_at' => $date = Carbon::now()->subYear(),
         ]);
         $this->actingAs($user)->get(route('password.expired'));
-        $response = $this->postJson(route('password.post_expired'), [
+        $response = $this->postJson(route('password.post_change'), [
             'current_password' => 'secret',
             'password' => 'secret-now',
             'password_confirmation' => 'secret-now',
@@ -47,7 +47,7 @@ class ExpiredPasswordTest extends TestCase
             'password_changed_at' => $date = Carbon::now()->subYear(),
         ]);
         $this->actingAs($user)->get(route('password.expired'));
-        $response = $this->postJson(route('password.post_expired'), [
+        $response = $this->postJson(route('password.post_change'), [
             'current_password' => 'secret-wrong',
             'password' => 'secret-now',
             'password_confirmation' => 'secret-now',
@@ -62,7 +62,7 @@ class ExpiredPasswordTest extends TestCase
             'password_changed_at' => $date = Carbon::now()->subYear(),
         ]);
         $this->actingAs($user)->get(route('password.expired'));
-        $response = $this->postJson(route('password.post_expired'), [
+        $response = $this->postJson(route('password.post_change'), [
             'current_password' => 'secret',
             'password' => 'secret-now',
             'password_confirmation' => 'secret-now-wrong',

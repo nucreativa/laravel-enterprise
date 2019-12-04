@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PasswordExpiredRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,7 +24,7 @@ class ChangePasswordController extends Controller
         return view('auth.passwords.change');
     }
 
-    public function update(PasswordExpiredRequest $request)
+    public function update(ChangePasswordRequest $request)
     {
         // Checking current password
         if (! Hash::check($request->current_password, $request->user()->password)) {

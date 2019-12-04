@@ -24,4 +24,43 @@ class ChangePasswordTest extends TestCase
 
         $response->assertRedirect(route('login'));
     }
+
+    public function test_change_password_successfully()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user)->get(route('password.change'));
+        $response = $this->postJson(route('password.post_change', [
+            'current_password' => 'secret',
+            'password' => '#itssecret',
+            'password_confirmation' => '#itssecret',
+        ]));
+
+        $response->assertRedirect(route('password.change'));
+    }
+
+    public function test_change_password_with_weak_password()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user)->get(route('password.change'));
+        $response = $this->postJson(route('password.post_change', [
+            'current_password' => 'secret',
+            'password' => 'weakpassword',
+            'password_confirmation' => 'weakpassword',
+        ]));
+
+        $response->assertStatus(422);
+    }
+
+    public function test_change_password_with_confirmation_password_not_same()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user)->get(route('password.expired'));
+        $response = $this->postJson(route('password.post_change'), [
+            'current_password' => 'secret',
+            'password' => 'weakpassword',
+            'password_confirmation' => 'weakpassword123',
+        ]);
+
+        $response->assertStatus(422);
+    }
 }

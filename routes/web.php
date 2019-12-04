@@ -26,8 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('profile/update', 'Auth\UpdateProfileController@index')->name('profile.update');
     Route::post('password/change', 'Auth\ChangePasswordController@update')->name('password.post_change');
     Route::get('password/change', 'Auth\ChangePasswordController@index')->name('password.change');
-    Route::get('password/expired', 'Auth\ExpiredPasswordController@expired')->name('password.expired');
-    Route::post('password/post_expired', 'Auth\ExpiredPasswordController@postExpired')->name('password.post_expired');
+    Route::get('password/expired', 'Auth\ExpiredPasswordController@index')->name('password.expired');
 });
 
 Route::middleware(['role:administrator'])->group(function () {
