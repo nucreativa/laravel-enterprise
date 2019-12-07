@@ -15,6 +15,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Group</th>
                                 <th width="50"></th>
                             </tr>
                             </thead>
@@ -22,12 +23,12 @@
                             @foreach($permissions as $permission)
                                 <tr>
                                     <td>{{$permission->name}}</td>
-                                    @if(auth()->user()->can('can_edit_permission'))
-                                        <td><a href="{{ route('permission.edit',['id'=>$permission->id]) }}">Edit</a>
-                                        </td>
-                                    @else
-                                        <td></td>
-                                    @endif
+                                    <td>{{optional($permission->group)->name}}</td>
+                                    <td>
+                                        @if(auth()->user()->can('can_edit_permission'))
+                                            <a href="{{ route('permission.edit',['id'=>$permission->id]) }}">Edit</a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
