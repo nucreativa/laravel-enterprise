@@ -30,13 +30,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['role:administrator'])->group(function () {
-    Route::post('/permissions', 'PermissionController@add')->name('permission.add');
+    Route::get('/permissions/export', 'PermissionController@export')->name('permission.export');
     Route::post('/permissions/{id}', 'PermissionController@update')->name('permission.update');
     Route::get('/permissions/{id}', 'PermissionController@edit')->name('permission.edit');
+    Route::post('/permissions', 'PermissionController@add')->name('permission.add');
     Route::get('/permissions', 'PermissionController@index')->name('permission.index');
-    Route::post('/roles', 'RoleController@add')->name('role.add');
+
+    Route::get('/roles/export', 'RoleController@export')->name('role.export');
     Route::post('/roles/{id}', 'RoleController@update')->name('role.update');
     Route::get('/roles/{id}', 'RoleController@edit')->name('role.edit');
+    Route::post('/roles', 'RoleController@add')->name('role.add');
     Route::get('/roles', 'RoleController@index')->name('role.index');
 
     Route::get('/users/export', 'UserController@export')->name('user.export');

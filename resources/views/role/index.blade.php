@@ -8,7 +8,9 @@
             </div>
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Roles</div>
+                    <div class="card-header">Roles
+                        <div class="float-sm-right"><a href="{{route('role.export')}}">Export</a></div>
+                    </div>
 
                     <div class="card-body">
                         <table class="table table-bordered">

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PermissionsExport;
 use App\Permission;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
@@ -59,5 +61,10 @@ class PermissionController extends Controller
         $role->syncRoles($data['roles']);
 
         return redirect()->route('permission.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new PermissionsExport(), 'permissions.xlsx');
     }
 }
