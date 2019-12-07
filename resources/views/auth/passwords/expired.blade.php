@@ -17,7 +17,7 @@
                             <div class="alert alert-info">
                                 Your password has expired, please change it.
                             </div>
-                            <form method="POST" action="{{ route('password.post_expired') }}">
+                            <form method="POST" action="{{ route('password.change') }}">
                                 @csrf
 
                                 <div class="form-group row">
