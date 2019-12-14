@@ -11095,3 +11095,8 @@ body {
   background-color: #f8f9fa;
 }
 
+.hideShowPassword-toggle {
+  border: none !important;
+  right: 10px !important;
+}
+
