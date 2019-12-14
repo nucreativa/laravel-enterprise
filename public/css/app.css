@@ -11100,3 +11100,7 @@ body {
   right: 10px !important;
 }
 
+.hideShowPassword-toggle:focus {
+  outline: none !important;
+}
+

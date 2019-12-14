@@ -16,4 +16,8 @@ body {
 .hideShowPassword-toggle {
     border: none !important;
     right: 10px !important;
+
+    &:focus {
+        outline: none !important;
+    }
 }
