@@ -20,6 +20,7 @@
         "spatie/laravel-permission": "^3.3"
     },
     "require-dev": {
+        "codedungeon/phpunit-result-printer": "^0.26.2",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
         "laravel/ui": "^1.1",
