@@ -2,28 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\RolesExport;
 use App\PermissionGroup;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    private $role;
-
-    public function __construct(Role $role)
-    {
-        $this->role = $role;
-    }
-
     public function index()
     {
-        $roles = $this->role->with(['permissions', 'users'])->paginate(10);
+        $roles = Role::with(['permissions', 'users'])->get();
         $permissionGroups = PermissionGroup::with('childs.permissions')->whereNull('parent_id')->get();
 
         return view('role.index', compact(['roles', 'permissionGroups']));
     }
 
-    public function add()
+    public function store()
     {
         $data = $this->validate(request(), [
             'name' => 'required|string|max:191',
@@ -31,33 +27,37 @@ class RoleController extends Controller
         ]);
         $permissions = $data['permissions'];
         unset($data['permissions']);
-
-        $role = $this->role->create($data);
+        $role = Role::create($data);
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission);
         }
+        Cache::forget('roles');
 
-        return redirect(route('role.index'));
+        return redirect(route('roles.index'));
     }
 
-    public function edit($id)
+    public function edit(Role $role)
     {
-        $role = $this->role->with('permissions')->find($id);
         $rolePermissions = $role->permissions->pluck('id')->toArray();
         $permissionGroups = PermissionGroup::with('childs.permissions')->whereNull('parent_id')->get();
 
         return view('role.edit', compact(['role', 'rolePermissions', 'permissionGroups']));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
         $data = $request->all();
-        Role::where('id', $id)->update([
+        $role->update([
             'name' => $data['name'],
         ]);
-        $role = Role::find($id);
-        $role->syncPermissions($data['permissions']);
+        $role->syncPermissions($data['permissions'] ?? []);
+        Cache::forget('roles');
 
-        return redirect()->route('role.index');
+        return redirect()->route('roles.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new RolesExport(), 'roles.xlsx');
     }
 }

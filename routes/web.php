@@ -30,22 +30,25 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['role:administrator'])->group(function () {
-    Route::get('/permissions/export', 'PermissionController@export')->name('permission.export');
-    Route::post('/permissions/{id}', 'PermissionController@update')->name('permission.update');
-    Route::get('/permissions/{id}', 'PermissionController@edit')->name('permission.edit');
-    Route::post('/permissions', 'PermissionController@add')->name('permission.add');
-    Route::get('/permissions', 'PermissionController@index')->name('permission.index');
+    Route::get('/permissions/export', 'PermissionController@export')->name('permissions.export');
+    Route::resource('permissions', 'PermissionController')->except([
+        'show',
+        'create',
+        'destroy',
+    ]);
 
-    Route::get('/roles/export', 'RoleController@export')->name('role.export');
-    Route::post('/roles/{id}', 'RoleController@update')->name('role.update');
-    Route::get('/roles/{id}', 'RoleController@edit')->name('role.edit');
-    Route::post('/roles', 'RoleController@add')->name('role.add');
-    Route::get('/roles', 'RoleController@index')->name('role.index');
+    Route::get('/roles/export', 'RoleController@export')->name('roles.export');
+    Route::resource('roles', 'RoleController')->except([
+        'show',
+        'create',
+        'destroy',
+    ]);
 
-    Route::get('/users/export', 'UserController@export')->name('user.export');
-    Route::post('/users/{id}', 'UserController@update')->name('user.update');
-    Route::get('/users/{id}', 'UserController@edit')->name('user.edit');
-    Route::get('/users', 'UserController@index')->name('user.index');
+    Route::get('/users/export', 'UserController@export')->name('users.export');
+    Route::resource('users', 'UserController')->except([
+        'show',
+        'destroy',
+    ]);
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

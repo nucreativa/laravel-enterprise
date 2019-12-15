@@ -4,13 +4,13 @@
             <a href="{{route('home')}}" class="nav-link">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('user.index')}}">Users</a>
+            <a class="nav-link" href="{{route('users.index')}}">Users</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('role.index')}}">Roles</a>
+            <a class="nav-link" href="{{route('roles.index')}}">Roles</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{route('permission.index')}}">Permissions</a>
+            <a class="nav-link" href="{{route('permissions.index')}}">Permissions</a>
         </li>
     </ul>
 </div>

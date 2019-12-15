@@ -11,8 +11,9 @@
                     <div class="card-header">Role #{{$role->id}}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('role.update', ['id' => $role->id]) }}" method="post">
+                        <form action="{{ route('roles.update', ['role' => $role]) }}" method="post">
                             @csrf
+                            @method('PUT')
 
                             <div class="form-group">
                                 <label>Name</label>
@@ -35,8 +36,8 @@
                                                             <li>
                                                                 <input type="checkbox" name="permissions[]"
                                                                        value="{{$permission->id}}"
-                                                                        {{ (in_array($permission->id,
-                                                                        $rolePermissions) ? "checked":"") }}>
+                                                                    {{ (in_array($permission->id,
+                                                                    $rolePermissions) ? "checked":"") }}>
                                                                 {{$permission->name}}
                                                             </li>
                                                         @endforeach
@@ -49,7 +50,7 @@
                             </ul>
 
                             <div class="text-right">
-                                <a href="{{ route('role.index') }}" class="btn btn-default">Cancel</a>
+                                <a href="{{ route('roles.index') }}" class="btn btn-default">Cancel</a>
                                 <input type="submit" value="Save" class="btn btn-primary">
                             </div>
                         </form>

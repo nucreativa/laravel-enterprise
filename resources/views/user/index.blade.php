@@ -9,16 +9,16 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Users
-                        <div class="float-sm-right"><a href="{{route('user.export')}}">Export</a></div>
+                        <div class="float-sm-right"><a href="{{route('users.export')}}">Export</a></div>
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered datatable" width="100%">
                             <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th width="50"></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -27,7 +27,7 @@
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     @if(auth()->user()->can('can_edit_user'))
-                                        <td><a href="{{ route('user.edit',['id' => $user->id]) }}">Edit</a></td>
+                                        <td><a href="{{ route('users.edit',['user' => $user]) }}">Edit</a></td>
                                     @else
                                         <td></td>
                                     @endif
@@ -36,8 +36,6 @@
                             </tbody>
 
                         </table>
-
-                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

@@ -5,27 +5,25 @@ namespace App\Http\Controllers;
 use App\Exports\PermissionsExport;
 use App\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class PermissionController extends Controller
 {
-    private $permission;
-
-    public function __construct(Permission $permission)
-    {
-        $this->permission = $permission;
-    }
-
     public function index()
     {
-        $permissions = $this->permission->with(['roles', 'users'])->paginate(10);
-        $roles = Role::all();
+        $permissions = Cache::remember('permissions', 120, function () {
+            return Permission::with(['roles', 'users'])->get();
+        });
+        $roles = Cache::remember('roles', 120, function () {
+            return Role::all();
+        });
 
         return view('permission.index', compact(['permissions', 'roles']));
     }
 
-    public function add()
+    public function store()
     {
         $data = $this->validate(request(), [
             'name' => 'required|string|max:191',
@@ -33,34 +31,33 @@ class PermissionController extends Controller
         ]);
         $roles = $data['roles'];
         unset($data['roles']);
+        $permission = Permission::create($data);
+        $permission->syncRoles($roles);
+        Cache::forget('permissions');
 
-        $permission = $this->permission->create($data);
-        foreach ($roles as $role) {
-            $permission->assignRole($role);
-        }
-
-        return redirect(route('permission.index'));
+        return redirect(route('permissions.index'));
     }
 
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        $permission = $this->permission->find($id);
         $permissionRoles = $permission->roles->pluck('id')->toArray();
-        $roles = Role::all();
+        $roles = Cache::remember('roles', 120, function () {
+            return Role::all();
+        });
 
         return view('permission.edit', compact(['permission', 'permissionRoles', 'roles']));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Permission $permission)
     {
         $data = $request->all();
-        Permission::where('id', $id)->update([
+        $permission->update([
             'name' => $data['name'],
         ]);
-        $role = Permission::find($id);
-        $role->syncRoles($data['roles']);
+        $permission->syncRoles($data['roles']);
+        Cache::forget('permissions');
 
-        return redirect()->route('permission.index');
+        return redirect()->route('permissions.index');
     }
 
     public function export()

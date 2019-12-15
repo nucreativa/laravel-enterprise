@@ -9,16 +9,16 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Permissions
-                        <div class="float-sm-right"><a href="{{route('permission.export')}}">Export</a></div>
+                        <div class="float-sm-right"><a href="{{route('permissions.export')}}">Export</a></div>
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered datatable" width="100%">
                             <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Group</th>
-                                <th width="50"></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -28,26 +28,27 @@
                                     <td>{{optional($permission->group)->name}}</td>
                                     <td>
                                         @if(auth()->user()->can('can_edit_permission'))
-                                            <a href="{{ route('permission.edit',['id'=>$permission->id]) }}">Edit</a>
+                                            <a href="{{ route('permissions.edit',['permission'=>$permission])
+                                            }}">Edit</a>
                                         @endif
                                     </td>
+
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
 
-                        {{ $permissions->links() }}
+                        <hr>
 
                         @can('can_add_permission')
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="<?php echo route('permission.add')?>" method="post">
+                                    <form action="<?php echo route('permissions.store')?>" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label>Name</label>
                                             <input type="text" class="form-control" id="name" name="name">
                                         </div>
-                                        <input type="hidden" name="roles[]">
 
                                         <hr>
 

@@ -9,15 +9,15 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Roles
-                        <div class="float-sm-right"><a href="{{route('role.export')}}">Export</a></div>
+                        <div class="float-sm-right"><a href="{{route('roles.export')}}">Export</a></div>
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered datatable" width="100%">
                             <thead>
                             <tr>
                                 <th>Name</th>
-                                <th width="50"></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -25,7 +25,7 @@
                                 <tr>
                                     <td>{{$role->name}}</td>
                                     @if(auth()->user()->can('can_edit_role'))
-                                        <td><a href="{{ route('role.edit',['id' =>$role->id]) }}">Edit</a></td>
+                                        <td><a href="{{ route('roles.edit',['role'=>$role]) }}">Edit</a></td>
                                         </td>
                                     @else
                                         <td></td>
@@ -33,16 +33,15 @@
                                 </tr>
                             @endforeach
                             </tbody>
-
                         </table>
 
-                        {{ $roles->links() }}
+                        <hr>
 
                         @can('can_add_role')
                             <div class="card">
                                 <div class="card-body">
 
-                                    <form action="<?php echo route('role.add')?>" method="post">
+                                    <form action="<?php echo route('roles.store')?>" method="post">
                                         @csrf
                                         <div class="form-group">
                                             <label>Name</label>

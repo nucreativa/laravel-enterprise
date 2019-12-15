@@ -11,7 +11,7 @@
                     <div class="card-header">User #{{$user->id}}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('user.update', ['id' => $user->id]) }}" method="post">
+                        <form action="{{ route('users.update', ['user' => $user]) }}" method="post">
                             @csrf
 
                             <div class="form-group">
@@ -33,7 +33,7 @@
                                     @foreach ($roles as $role)
                                         <li class="list-inline-item">
                                             <input type="checkbox" name="roles[]" value="{{$role->id}}"
-                                            {{ (in_array($role->id, $userRoles) ? "checked":"") }}>
+                                                {{ (in_array($role->id, $userRoles) ? "checked":"") }}>
                                             {{ ucwords($role->name)}}
                                         </li>
                                     @endforeach
@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="text-right">
-                                <a href="{{ route('user.index') }}" class="btn btn-default">Cancel</a>
+                                <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</a>
                                 <input type="submit" value="Save" class="btn btn-primary">
                             </div>
                         </form>

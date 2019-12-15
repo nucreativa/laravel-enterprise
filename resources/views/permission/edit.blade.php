@@ -11,8 +11,9 @@
                     <div class="card-header">Permission #{{$permission->id}}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('permission.update', ['id' => $permission->id]) }}" method="post">
+                        <form action="{{ route('permissions.update', ['permission' => $permission]) }}" method="post">
                             @csrf
+                            @method('put')
 
                             <div class="form-group">
                                 <label>Name</label>
@@ -33,7 +34,7 @@
                             </ul>
 
                             <div class="text-right">
-                                <a href="{{ route('permission.index') }}" class="btn btn-default">Cancel</a>
+                                <a href="{{ route('permissions.index') }}" class="btn btn-default">Cancel</a>
                                 <input type="submit" value="Save" class="btn btn-primary">
                             </div>
                         </form>
