@@ -24,4 +24,26 @@ class UpdateProfileTest extends TestCase
 
         $response->assertRedirect(route('login'));
     }
+
+    public function test_update_profile()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user)->get(route('profile.update'));
+        $response = $this->postJson(route('profile.post_update'), [
+            'name' => 'New Name',
+        ]);
+
+        $response->assertRedirect(route('profile.update'));
+    }
+
+    public function test_update_profile_with_errors()
+    {
+        $user = factory(User::class)->create();
+        $this->actingAs($user)->get(route('profile.update'));
+        $response = $this->postJson(route('profile.post_update'), [
+            'name' => '',
+        ]);
+
+        $response->assertStatus(422);
+    }
 }

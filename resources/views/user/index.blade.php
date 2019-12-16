@@ -41,6 +41,59 @@
                             @endforeach
                             </tbody>
                         </table>
+
+                        <hr>
+
+                        @can('can_add_user')
+                            <div class="card">
+                                <div class="card-body">
+                                    <form action="{{ route('users.store') }}" method="post">
+                                        @csrf
+
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text"
+                                                   id="name" name="name" value="{{ old('name') }}"
+                                                   class="form-control @error('name') is-invalid @enderror">
+                                            @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text"
+                                                   id="email" name="email" value="{{ old('email') }}"
+                                                   class="form-control @error('email') is-invalid @enderror">
+                                            @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password"
+                                                   id="password" name="password"
+                                                   class="form-control @error('password') is-invalid @enderror">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert" style="display:block!important">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="text-right">
+                                            <input type="submit" value="Create" class="btn btn-primary">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        @endcan
+
                     </div>
                 </div>
             </div>

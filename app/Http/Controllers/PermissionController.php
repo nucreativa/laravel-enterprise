@@ -40,7 +40,7 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
-        $permissionRoles = $permission->roles->pluck('id')->toArray();
+        $permissionRoles = $permission->roles()->pluck('id')->toArray();
         $roles = Cache::remember('roles', 120, function () {
             return Role::all();
         });

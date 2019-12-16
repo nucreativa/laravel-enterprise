@@ -13,11 +13,18 @@
                     <div class="card-body">
                         <form action="{{ route('users.update', ['user' => $user]) }}" method="post">
                             @csrf
+                            @method('put')
 
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                       value="{{ $user->name }}">
+                                <input type="text"
+                                       id="name" name="name" value="{{ old('name') ?? $user->name }}"
+                                       class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -28,7 +35,7 @@
 
                             <div class="form-group">
                                 <label>Roles</label>
-
+                                <input type="hidden" name="roles[]">
                                 <ul class="list-inline">
                                     @foreach ($roles as $role)
                                         <li class="list-inline-item">
