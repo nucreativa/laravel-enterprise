@@ -13,12 +13,18 @@
                     </div>
 
                     <div class="card-body">
-                        <table class="table table-bordered datatable" width="100%">
+                        <table data-toggle="table"
+                               data-search="true"
+                               data-show-columns="true"
+                               data-page-list="[10, 50]"
+                               data-pagination="true"
+                               data-page-size="10"
+                               class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Group</th>
-                                <th></th>
+                                <th data-sortable="true">Name</th>
+                                <th data-width="200" data-sortable="true">Group</th>
+                                <th data-width="50" data-switchable="false"></th>
                             </tr>
                             </thead>
                             <tbody>

@@ -4,7 +4,10 @@
 Create App Skeleton that can be used to build an enterprise grade application.
 
 ## Feature
-* Regularly Change Password policy applied
+* Password Expires
+* Sortable Table
+* Searchable Table
+* Column Switchable Table
 
 ## How to test
 ```shell script

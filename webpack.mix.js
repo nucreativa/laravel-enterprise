@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
         'popper.js',
         'jquery',
         'bootstrap',
+        'bootstrap-table',
         'hideshowpassword'
     ])
     .sass('resources/sass/app.scss', 'public/css')
