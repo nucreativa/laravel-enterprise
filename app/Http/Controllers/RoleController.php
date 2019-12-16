@@ -46,11 +46,14 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-        $data = $request->all();
+        $data = $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'permissions' => ['present', 'array'],
+        ]);
         $role->update([
             'name' => $data['name'],
         ]);
-        $role->syncPermissions($data['permissions'] ?? []);
+        $role->syncPermissions($data['permissions']);
         Cache::forget('roles');
 
         return redirect()->route('roles.index');

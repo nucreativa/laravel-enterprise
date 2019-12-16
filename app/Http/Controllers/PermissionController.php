@@ -50,7 +50,10 @@ class PermissionController extends Controller
 
     public function update(Request $request, Permission $permission)
     {
-        $data = $request->all();
+        $data = $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'roles' => ['present', 'array'],
+        ]);
         $permission->update([
             'name' => $data['name'],
         ]);

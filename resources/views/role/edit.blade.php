@@ -17,8 +17,14 @@
 
                             <div class="form-group">
                                 <label>Name</label>
-                                <input type="text" class="form-control" id="name" name="name"
-                                       value="{{ $role->name }}">
+                                <input type="text"
+                                       id="name" name="name" value="{{ old('name') ?? $role->name }}"
+                                       class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <hr>
