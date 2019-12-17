@@ -21,14 +21,14 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Max Login Attempts per minute
+     * Max Login Attempts per minute.
      *
      * @var int
      */
     protected $maxAttempts = 3;
 
     /**
-     * How many minutes after last max attempts
+     * How many minutes after last max attempts.
      *
      * @var int
      */

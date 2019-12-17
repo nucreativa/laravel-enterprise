@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Add a mutator to ensure hashed passwords
+     * Add a mutator to ensure hashed passwords.
      */
     public function setPasswordAttribute($password)
     {
