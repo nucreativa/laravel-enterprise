@@ -91,13 +91,11 @@ return [
     |
     */
 
-    'ignore_paths' => [
-        //
-    ],
+    'ignore_paths' => [],
 
     'ignore_commands' => [
         'migrate',
-        'db:seed'
+        'db:seed',
     ],
 
     /*
