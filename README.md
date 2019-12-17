@@ -1,6 +1,7 @@
 # Laravel Enterprise
 
 [![StyleCI](https://github.styleci.io/repos/225859375/shield?branch=master)](https://github.styleci.io/repos/225859375)
+[![CircleCI](https://circleci.com/gh/nucreativa/laravel-enterprise.svg?style=svg)](https://circleci.com/gh/nucreativa/laravel-enterprise)
 
 ## Objectives
 Create App Skeleton that can be used to build an enterprise grade application.
