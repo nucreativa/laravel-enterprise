@@ -75,6 +75,18 @@
     </nav>
 
     <main class="py-4">
+        @if (session('warning'))
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{!! session('warning') !!}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         @yield('content')
     </main>
 </div>

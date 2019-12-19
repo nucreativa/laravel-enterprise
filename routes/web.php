@@ -29,7 +29,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('password/expired', 'Auth\ExpiredPasswordController@index')->name('password.expired');
 });
 
-Route::middleware(['role:administrator'])->group(function () {
+Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/permissions/export', 'PermissionController@export')->name('permissions.export');
     Route::resource('permissions', 'PermissionController')->except([
         'show',
