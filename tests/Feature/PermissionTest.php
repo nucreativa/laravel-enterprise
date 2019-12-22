@@ -25,7 +25,7 @@ class PermissionTest extends TestCase
     {
         $response = $this->get(route('permissions.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     public function test_create_new_permission()

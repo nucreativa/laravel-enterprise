@@ -25,7 +25,7 @@ class RoleTest extends TestCase
     {
         $response = $this->get(route('roles.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     public function test_create_new_role()

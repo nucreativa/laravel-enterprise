@@ -25,7 +25,7 @@ class UserTest extends TestCase
     {
         $response = $this->get(route('users.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     public function test_create_new_user()
