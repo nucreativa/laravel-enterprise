@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,18 +22,12 @@ class UserController extends Controller
         return view('user.index', compact('users'));
     }
 
-    public function store()
+    public function store(CreateUserRequest $request)
     {
-        $data = $this->validate(request(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
-
         User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
         Cache::forget('users');
 
@@ -49,16 +44,12 @@ class UserController extends Controller
         return view('user.edit', compact(['user', 'roles', 'userRoles']));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $data = $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'roles' => ['present', 'array'],
-        ]);
         $user->update([
-            'name' => $data['name'],
+            'name' => $request->name,
         ]);
-        $user->syncRoles($data['roles']);
+        $user->syncRoles($request->roles);
         Cache::forget('users');
 
         return redirect()->route('users.index');

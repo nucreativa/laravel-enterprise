@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\PermissionsExport;
+use App\Http\Requests\PermissionRequest;
 use App\Permission;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
@@ -23,12 +23,9 @@ class PermissionController extends Controller
         return view('permission.index', compact(['permissions', 'roles']));
     }
 
-    public function store()
+    public function store(PermissionRequest $request)
     {
-        $data = $this->validate(request(), [
-            'name' => 'required|string|max:191',
-            'roles' => 'present|array',
-        ]);
+        $data = $request->all();
         $roles = $data['roles'];
         unset($data['roles']);
         $permission = Permission::create($data);
@@ -48,16 +45,12 @@ class PermissionController extends Controller
         return view('permission.edit', compact(['permission', 'permissionRoles', 'roles']));
     }
 
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionRequest $request, Permission $permission)
     {
-        $data = $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'roles' => ['present', 'array'],
-        ]);
         $permission->update([
-            'name' => $data['name'],
+            'name' => $request->name,
         ]);
-        $permission->syncRoles($data['roles']);
+        $permission->syncRoles($request->roles);
         Cache::forget('permissions');
 
         return redirect()->route('permissions.index');

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\RolesExport;
+use App\Http\Requests\RoleRequest;
 use App\PermissionGroup;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
@@ -19,12 +19,9 @@ class RoleController extends Controller
         return view('role.index', compact(['roles', 'permissionGroups']));
     }
 
-    public function store()
+    public function store(RoleRequest $request)
     {
-        $data = $this->validate(request(), [
-            'name' => 'required|string|max:191',
-            'permissions' => 'present|array',
-        ]);
+        $data = $request->all();
         $permissions = $data['permissions'];
         unset($data['permissions']);
         $role = Role::create($data);
@@ -44,16 +41,12 @@ class RoleController extends Controller
         return view('role.edit', compact(['role', 'rolePermissions', 'permissionGroups']));
     }
 
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-        $data = $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'permissions' => ['present', 'array'],
-        ]);
         $role->update([
-            'name' => $data['name'],
+            'name' => $request->name,
         ]);
-        $role->syncPermissions($data['permissions']);
+        $role->syncPermissions($request->permissions);
         Cache::forget('roles');
 
         return redirect()->route('roles.index');
