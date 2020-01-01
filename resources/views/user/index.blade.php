@@ -1,15 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.app', ['activePage' => 'users'])
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-2">
-                @include('layouts.menu-admin')
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Users
-                        <div class="float-sm-right"><a href="{{route('users.export')}}">Export</a></div>
+                        <div class="float-sm-right">
+                            <a href="{{route('users.export')}}">Export</a>
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -24,7 +23,7 @@
                             <tr>
                                 <th data-sortable="true">Name</th>
                                 <th data-width="300" data-sortable="true">Email</th>
-                                <th data-width="50" data-switchable="false"></th>
+                                <th data-width="30" data-switchable="false"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -32,11 +31,13 @@
                                 <tr>
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
-                                    @if(auth()->user()->can('can_edit_user'))
-                                        <td><a href="{{ route('users.edit',['user' => $user]) }}">Edit</a></td>
-                                    @else
-                                        <td></td>
-                                    @endif
+                                    <td>
+                                        @if(auth()->user()->can('can_edit_user'))
+                                            <a href="{{ route('users.edit',['user' => $user]) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

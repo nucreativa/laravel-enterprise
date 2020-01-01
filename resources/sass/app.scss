@@ -1,18 +1,9 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import 'adminlte3/AdminLTE';
 @import '~bootstrap-table/dist/bootstrap-table.min.css';
-
-@import "bootswatch";
-
-body {
-    background-color: $gray-100;
-}
+@import '~icheck-bootstrap/icheck-bootstrap.min.css';
 
 .hideShowPassword-toggle {
     border: none !important;

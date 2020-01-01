@@ -1,12 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app', ['activePage' => 'permissions'])
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-2">
-                @include('layouts.menu-admin')
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Permissions
                         <div class="float-sm-right"><a href="{{route('permissions.export')}}">Export</a></div>
@@ -24,7 +21,7 @@
                             <tr>
                                 <th data-sortable="true">Name</th>
                                 <th data-width="200" data-sortable="true">Group</th>
-                                <th data-width="50" data-switchable="false"></th>
+                                <th data-width="30" data-switchable="false"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -34,11 +31,11 @@
                                     <td>{{optional($permission->group)->name}}</td>
                                     <td>
                                         @if(auth()->user()->can('can_edit_permission'))
-                                            <a href="{{ route('permissions.edit',['permission'=>$permission])
-                                            }}">Edit</a>
+                                            <a href="{{ route('permissions.edit',['permission'=>$permission]) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
                                         @endif
                                     </td>
-
                                 </tr>
                             @endforeach
                             </tbody>

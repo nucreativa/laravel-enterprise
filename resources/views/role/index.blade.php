@@ -1,12 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app', ['activePage' => 'roles'])
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-2">
-                @include('layouts.menu-admin')
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Roles
                         <div class="float-sm-right"><a href="{{route('roles.export')}}">Export</a></div>
@@ -23,19 +20,20 @@
                             <thead>
                             <tr>
                                 <th data-sortable="true">Name</th>
-                                <th data-width="50" data-switchable="false"></th>
+                                <th data-width="30" data-switchable="false"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($roles as $role)
                                 <tr>
                                     <td>{{$role->name}}</td>
-                                    @if(auth()->user()->can('can_edit_role'))
-                                        <td><a href="{{ route('roles.edit',['role'=>$role]) }}">Edit</a></td>
-                                        </td>
-                                    @else
-                                        <td></td>
-                                    @endif
+                                    <td>
+                                        @if(auth()->user()->can('can_edit_role'))
+                                            <a href="{{ route('roles.edit',['role'=>$role]) }}">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
