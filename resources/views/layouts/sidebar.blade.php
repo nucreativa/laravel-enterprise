@@ -32,46 +32,48 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview
+                @canany(['can_view_users','can_view_roles','can_view_permissions'])
+                    <li class="nav-item has-treeview
                     @if(in_array($activePage, ['users','roles','permissions'])) menu-open @endif">
-                    <a href="#" class="nav-link
+                        <a href="#" class="nav-link
                         @if(in_array($activePage, ['users','roles','permissions'])) active @endif">
-                        <i class="nav-icon fas fa-user-alt"></i>
-                        <p>
-                            User Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        @can('can_view_users')
-                            <li class="nav-item">
-                                <a class="nav-link @if($activePage == 'users') active @endif"
-                                   href="{{route('users.index')}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span>Users</span>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('can_view_roles')
-                            <li class="nav-item">
-                                <a class="nav-link @if($activePage == 'roles') active @endif"
-                                   href="{{route('roles.index')}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span>Roles</span>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('can_view_permissions')
-                            <li class="nav-item">
-                                <a class="nav-link @if($activePage == 'permissions') active @endif"
-                                   href="{{route('permissions.index')}}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <span>Permissions</span>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-                </li>
+                            <i class="nav-icon fas fa-user-alt"></i>
+                            <p>
+                                User Management
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('can_view_users')
+                                <li class="nav-item">
+                                    <a class="nav-link @if($activePage == 'users') active @endif"
+                                       href="{{route('users.index')}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <span>Users</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('can_view_roles')
+                                <li class="nav-item">
+                                    <a class="nav-link @if($activePage == 'roles') active @endif"
+                                       href="{{route('roles.index')}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <span>Roles</span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('can_view_permissions')
+                                <li class="nav-item">
+                                    <a class="nav-link @if($activePage == 'permissions') active @endif"
+                                       href="{{route('permissions.index')}}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <span>Permissions</span>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
