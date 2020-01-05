@@ -32,6 +32,32 @@
                         </p>
                     </a>
                 </li>
+                @canany(['can_manage_uptime'])
+                    <li class="nav-item has-treeview
+                    @if(in_array($activePage, ['uptime'])) menu-open @endif">
+                        <a href="#" class="nav-link
+                        @if(in_array($activePage, ['uptime'])) active @endif">
+                            <i class="nav-icon fas fa-tools"></i>
+                            <p>
+                                Administrator Tools
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('can_manage_uptime')
+                                <li class="nav-item">
+                                    <a href="{{route('uptime.index')}}"
+                                       class="nav-link @if($activePage == 'uptime') active @endif">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Uptime Monitor
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
                 @canany(['can_view_users','can_view_roles','can_view_permissions'])
                     <li class="nav-item has-treeview
                     @if(in_array($activePage, ['users','roles','permissions'])) menu-open @endif">

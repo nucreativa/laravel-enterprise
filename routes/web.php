@@ -27,9 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('password/change', 'Auth\ChangePasswordController@update')->name('password.post_change');
     Route::get('password/change', 'Auth\ChangePasswordController@index')->name('password.change');
     Route::get('password/expired', 'Auth\ExpiredPasswordController@index')->name('password.expired');
-});
 
-Route::middleware(['auth', 'role:administrator'])->group(function () {
     Route::get('/permissions/export', 'PermissionController@export')->name('permissions.export');
     Route::resource('permissions', 'PermissionController')->except([
         'show',
@@ -49,6 +47,10 @@ Route::middleware(['auth', 'role:administrator'])->group(function () {
         'show',
         'destroy',
     ]);
+});
+
+Route::middleware(['auth', 'can:can_manage_uptime'])->group(function () {
+    Route::get('/uptime', 'UptimeMonitorController@index')->name('uptime.index');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
