@@ -64,9 +64,10 @@
 
                                         <ul class="list-unstyled">
                                             @foreach ($roles as $role)
-                                                <li>
-                                                    <input type="checkbox" name="roles[]" value="{{$role->id}}">
-                                                    {{$role->name}}
+                                                <li class="icheck-primary">
+                                                    <input type="checkbox" name="roles[]"
+                                                           id="{{$role->id}}" value="{{$role->id}}">
+                                                    <label for="{{$role->name}}">{{$role->name}}</label>
                                                 </li>
                                             @endforeach
                                         </ul>

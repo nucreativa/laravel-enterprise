@@ -28,10 +28,11 @@
 
                             <ul class="list-unstyled">
                                 @foreach ($roles as $role)
-                                    <li>
-                                        <input type="checkbox" name="roles[]" value="{{$role->id}}"
+                                    <li class="icheck-primary">
+                                        <input type="checkbox" name="roles[]"
+                                               value="{{$role->id}}" id="{{$role->id}}"
                                             {{ (in_array($role->id, $permissionRoles) ? "checked":"") }}>
-                                        {{$role->name}}
+                                        <label for="{{$role->id}}">{{$role->name}}</label>
                                     </li>
                                 @endforeach
                             </ul>

@@ -28,7 +28,7 @@
                                 <tr>
                                     <td>{{$role->name}}</td>
                                     <td>
-                                        @if(auth()->user()->can('can_edit_role'))
+                                        @if(auth()->user()->can('can_edit_role') && $role->id !== 1)
                                             <a href="{{ route('roles.edit',['role'=>$role]) }}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -60,28 +60,31 @@
                                         </div>
                                         <input type="hidden" name="permissions[]">
 
-                                        <hr>
-
                                         <ul class="list-unstyled">
                                             @foreach ($permissionGroups as $group)
                                                 <li>
-                                                    {{ strtoupper($group->name)}}
+                                                    <h5>{{ strtoupper($group->name)}}</h5>
                                                     <ul class="list-inline">
                                                         @foreach ($group->childs as $child)
-                                                            <li class="list-inline-item">
-                                                                {{$child->name}}
+                                                            <li class="list-inline-item align-text-top">
+                                                                <h6>{{$child->name}}</h6>
                                                                 <ul class="list-unstyled">
                                                                     @foreach ($child->permissions as $permission)
-                                                                        <li>
-                                                                            <input type="checkbox" name="permissions[]"
+                                                                        <li class="icheck-primary">
+                                                                            <input type="checkbox"
+                                                                                   name="permissions[]"
+                                                                                   id="{{ $permission->name }}"
                                                                                    value="{{$permission->id}}">
-                                                                            {{$permission->name}}
+                                                                            <label for="{{ $permission->name}}">
+                                                                                {{$permission->name}}
+                                                                            </label>
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>
                                                             </li>
                                                         @endforeach
                                                     </ul>
+                                                    <hr>
                                                 </li>
                                             @endforeach
                                         </ul>

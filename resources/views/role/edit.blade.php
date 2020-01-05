@@ -32,16 +32,19 @@
                                         {{ strtoupper($group->name)}}
                                         <ul class="list-inline">
                                             @foreach ($group->childs as $child)
-                                                <li class="list-inline-item">
+                                                <li class="list-inline-item align-text-top">
                                                     {{$child->name}}
                                                     <ul class="list-unstyled">
                                                         @foreach ($child->permissions as $permission)
-                                                            <li>
+                                                            <li class="icheck-primary">
                                                                 <input type="checkbox" name="permissions[]"
                                                                        value="{{$permission->id}}"
+                                                                       id="{{$permission->id}}"
                                                                     {{ (in_array($permission->id,
                                                                     $rolePermissions) ? "checked":"") }}>
-                                                                {{$permission->name}}
+                                                                <label for="{{$permission->id}}">
+                                                                    {{$permission->name}}
+                                                                </label>
                                                             </li>
                                                         @endforeach
                                                     </ul>

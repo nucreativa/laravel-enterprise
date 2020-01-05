@@ -35,10 +35,11 @@
                                 <input type="hidden" name="roles[]">
                                 <ul class="list-inline">
                                     @foreach ($roles as $role)
-                                        <li class="list-inline-item">
-                                            <input type="checkbox" name="roles[]" value="{{$role->id}}"
+                                        <li class="list-inline-item icheck-primary">
+                                            <input type="checkbox" name="roles[]"
+                                                   value="{{$role->id}}" id="{{$role->id}}"
                                                 {{ (in_array($role->id, $userRoles) ? "checked":"") }}>
-                                            {{ ucwords($role->name)}}
+                                            <label for="{{$role->id}}">{{ ucwords($role->name)}}</label>
                                         </li>
                                     @endforeach
                                 </ul>

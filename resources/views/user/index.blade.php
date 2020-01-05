@@ -32,7 +32,7 @@
                                     <td>{{$user->name}}</td>
                                     <td>{{$user->email}}</td>
                                     <td>
-                                        @if(auth()->user()->can('can_edit_user'))
+                                        @if(auth()->user()->can('can_edit_user') && $user->id !== 1)
                                             <a href="{{ route('users.edit',['user' => $user]) }}">
                                                 <i class="fa fa-edit"></i>
                                             </a>
