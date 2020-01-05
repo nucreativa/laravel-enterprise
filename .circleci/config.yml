@@ -13,9 +13,10 @@ jobs:
 
       - run: sudo apt update
       - run: sudo apt install zip unzip wget libzip-dev git zlib1g-dev libsqlite3-dev libpcre3-dev libfreetype6-dev
-      - run: sudo apt install libjpeg62-turbo-dev libmcrypt-dev libpng-dev
+      - run: sudo apt install libjpeg62-turbo-dev libmcrypt-dev libpng-dev libicu-dev
       - run: sudo docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
-      - run: sudo docker-php-ext-install zip exif gd bcmath
+      - run: sudo docker-php-ext-configure intl
+      - run: sudo docker-php-ext-install zip exif gd bcmath intl
 
       - restore_cache:
           keys:
