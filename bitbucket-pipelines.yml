@@ -3,7 +3,7 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: php:7.3.13
+image: php:7.4.3
 
 pipelines:
   default:
@@ -16,7 +16,7 @@ pipelines:
           - docker-php-ext-configure intl
           - docker-php-ext-install intl
           - docker-php-ext-install exif
-          - docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+          - docker-php-ext-configure gd --with-freetype --with-jpeg
           - docker-php-ext-install gd
           - docker-php-ext-install bcmath
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
